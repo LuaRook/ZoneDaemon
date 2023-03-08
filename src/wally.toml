@@ -1,0 +1,12 @@
+[package]
+name = "luarook/zonedaemon"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+EnumList = "sleitnick/enum-list@^2"
+Signal = "sleitnick/signal@^1"
+TableUtil = "sleitnick/table-util@^1"
+Timer = "sleitnick/timer@^1"
+Trove = "sleitnick/trove@^0.5"

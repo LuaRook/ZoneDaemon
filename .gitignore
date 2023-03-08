@@ -1,4 +1,10 @@
-Packages/
-
-.vscode
-*.lock
+.vscode/**
+site/
+*.rbxlx
+*.rbxl
+*.rbxl.lock
+*.rbxmx
+*.rbxm
+src/Packages/
+src/wally.lock
+build/

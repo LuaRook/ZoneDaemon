@@ -1,6 +1,9 @@
 {
-    "name": "ZoneDaemon",
+    "name": "Packages",
     "tree": {
-        "$path": "src/ZoneDaemon"
+        "$path": "src/Packages",
+		"ZoneDaemon": {
+			"$path": "src"
+		}
     }
 }

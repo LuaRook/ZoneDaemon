@@ -10,7 +10,7 @@ ZoneGroup.__index = ZoneGroup
 
 ZoneGroup.Interactions = EnumList.new("Interactions", {
 	"Standard", -- Do nothing and allow zones in the same group to run at the same time
-	"OneZoneOnly" -- Use the first group that recognized the touch event instead of parallel execution
+	"OneZoneOnly", -- Use the first group that recognized the touch event instead of parallel execution
 })
 
 local defaultSettings = {
@@ -21,13 +21,13 @@ function ZoneGroup.createGroup(groupName)
 	groupName = groupName or HttpService:GenerateGUID(false)
 	return setmetatable({
 		Settings = TableUtil.Copy(defaultSettings),
-		GroupName = groupName
+		GroupName = groupName,
 	}, ZoneGroup)
 end
 
 function ZoneGroup:CreateZoneInGroup(container, accuracy)
 	local Zone = ZoneDaemon.createZone(container, accuracy)
-	
+
 	self:AssignZoneToGroup(Zone)
 	return Zone
 end

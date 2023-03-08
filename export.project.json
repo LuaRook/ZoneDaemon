@@ -1,0 +1,14 @@
+{
+	"name": "ZoneDaemon",
+	"tree": {
+		"$className": "DataModel",
+		"ServerStorage": {
+			"ZoneDaemon": {
+				"$path": "src/Packages",
+				"ZoneDaemon": {
+					"$path": "src"
+				}
+			}
+		}
+	}
+}
