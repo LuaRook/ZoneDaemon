@@ -1,1 +1,4 @@
+Packages/
+
 .vscode
+*.lock
