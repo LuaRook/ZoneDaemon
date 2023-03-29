@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  style:
+    name: Styling
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: JohnnyMorganz/stylua-action@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        version: v0.16.0
+        args: --check ./src

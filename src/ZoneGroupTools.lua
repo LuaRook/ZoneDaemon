@@ -1,5 +1,5 @@
-local EnumList = require(script.Parent.EnumList)
-local TableUtil = require(script.Parent.TableUtil)
+local EnumList = require(script.Parent.Parent.EnumList)
+local TableUtil = require(script.Parent.Parent.TableUtil)
 
 local HttpService = game:GetService("HttpService")
 
@@ -26,10 +26,10 @@ function ZoneGroup.createGroup(groupName)
 end
 
 function ZoneGroup:CreateZoneInGroup(container, accuracy)
-	local Zone = ZoneDaemon.createZone(container, accuracy)
+	local zone = ZoneDaemon.createZone(container, accuracy)
 
-	self:AssignZoneToGroup(Zone)
-	return Zone
+	self:AssignZoneToGroup(zone)
+	return zone
 end
 
 function ZoneGroup:CanZonesTriggerOnIntersect()

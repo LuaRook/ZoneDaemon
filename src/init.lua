@@ -1,13 +1,13 @@
-local Signal = require(script.Parent.Signal)
 local EnumList = require(script.Parent.EnumList)
-local Trove = require(script.Parent.Trove)
-local Timer = require(script.Parent.Timer)
+local Signal = require(script.Parent.Signal)
 local TableUtil = require(script.Parent.TableUtil)
+local Timer = require(script.Parent.Timer)
+local Trove = require(script.Parent.Trove)
 
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
 local CollectionService = game:GetService("CollectionService")
 local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
 local IS_SERVER = RunService:IsServer()
 local IS_STREAMING = workspace.StreamingEnabled
@@ -27,8 +27,7 @@ ZoneDaemon.Detection = EnumList.new("Detection", { "Character", "RootPart" })
 
 ZoneDaemon.DefaultOverlapParams = OverlapParams.new()
 ZoneDaemon.DefaultOverlapParams.FilterDescendantsInstances = {}
--- selene: allow(incorrect_standard_library_use)
-ZoneDaemon.DefaultOverlapParams.FilterType = Enum.RaycastFilterType.Whitelist
+ZoneDaemon.DefaultOverlapParams.FilterType = Enum.RaycastFilterType.Include
 
 type Signal<T> = typeof(Signal.new()) & {
 	Connect: ((T) -> ()),
@@ -379,17 +378,17 @@ function ZoneDaemon.fromRegion(cframe, size, accuracy)
 end
 
 function ZoneDaemon.fromTag(tagName, accuracy)
-	local zone = ZoneDaemon.new(CollectionService:GetTagged(tagName) or {}, accuracy)
+	local self = ZoneDaemon.new(CollectionService:GetTagged(tagName) or {}, accuracy)
 
-	zone._trove:Connect(CollectionService:GetInstanceAddedSignal(tagName), function(instance)
-		table.insert(zone._containerParts, instance)
+	self._trove:Connect(CollectionService:GetInstanceAddedSignal(tagName), function(instance)
+		table.insert(self._containerParts, instance)
 	end)
 
-	zone._trove:Connect(CollectionService:GetInstanceRemovedSignal(tagName), function(instance)
-		table.remove(zone._containerParts, table.find(zone._containerParts, instance))
+	self._trove:Connect(CollectionService:GetInstanceRemovedSignal(tagName), function(instance)
+		table.remove(self._containerParts, table.find(self._containerParts, instance))
 	end)
 
-	return zone
+	return self
 end
 
 function ZoneDaemon:AddElement(elementName, defaultValue)
@@ -516,8 +515,6 @@ local function PlayerAdded(player: Player)
 		characterTrove:Add(function()
 			TableUtil.SwapRemoveFirstValue(Characters, character)
 			TableUtil.SwapRemoveFirstValue(RootParts, rootPart)
-
-			print(Characters, RootParts)
 		end)
 
 		characterTrove:Connect(humanoid.Died, function()
